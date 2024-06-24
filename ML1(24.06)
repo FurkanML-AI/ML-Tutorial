@@ -1,0 +1,14 @@
+from sklearn.datasets import load_iris
+#In the code above, we loaded the "iris" dataset from "sklearn.datasets" into our code.
+#The iris dataset is a very common example dataset in the field of machine learing and data analysis.
+
+from sklearn.model_selection import train_test_split
+#In the code above, we loaded the "train_test_split" from "sklearn.model_selection" into our code.(I guess you understand this event :D )
+#This function allows us to split the dataset into training and test subsets. 
+#You problably think this suggestion " what does mean training and test sets?".
+#The training set is the dataset that the model uses in the learing process.
+#Using this dataset, the model learnds relationships and optimizes itself.
+
+
+
+

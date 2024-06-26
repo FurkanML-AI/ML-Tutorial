@@ -1,0 +1,53 @@
+
+from sklearn.datasets import load_iris
+#Bu kod "sklearn.datasets" içerisinden "iris" veri setini kodumuza yükler.
+
+from sklearn.model_selection import train_test_split
+#Bu kod bizlere veri setimizi eğitim ve test gruplarına ayırabilmemizi sağlar, bu kavramları kısaca açıklamak gerekirse; eğitim seti, algoritmaya durumları öğrenmesi için verilen ve genelde toplam verinin %80'nini kapsayan veri bölümüdür. Test seti ise eğitim setinden arta kalan verinin algoritmaya gösterilmediği ve algoritmanın bu durumlara ne tepki vereceğini gözlemlemek için kullanılan veri bölümüdür. 
+
+from sklearn.preprocessing import StandardScaler
+#Burada veri önişlemede kullanılan bir sınıf kodumuza dahil edilmiştir, bahsi geçen kodda özelliklerin standartlaştırlması, verilerin ortalamasının 0 ve standart sapmasının 1 olacak şekilde dönüştürülmesini sağlar.
+
+from sklearn.neighbors import KNeighborsClassifier
+#Bu kodu en basit şekilde açıklayacak olursak k-NN sınıflandırma algoritmasını kodumuza eklemektedir."k-NN" sınıfladırma algoritması ise en net haliyle şudur: Örnek olarak sağ tarafta a'lar sol tarafta ise b'ler bulunmaktadır bu algoritmanın amacı bu grupların arasına yeni eklenen verinin(harfin ya da konu her ne ise) hangi tarafa daha çok komşusunun bulunduğunu ve bu komşulukların mesafesini ölçerek bir verinin hangi gruba dahil edilmesi gerektiğini bulmamıza yardımcı olur.
+
+from sklearn.metrics import accuracy_score, classification_report
+#Sırayla gidecek olursak "accuracy_score" bize "Doğruluk= Doğru Tahmin/Toplam Tahmin" formülünü kullanarak modelin genel doğruluğunu gösterir. "classification_report" ise modelin her bir sınıf için "Precision,recall, f1-score,support" değerlerini gösterir, bu metrikler modelin performansını daha detaylı ve kapsamlı bir şekilde değerlendirmeyi sağlar.
+
+Precision: Modelin pozitif olarak tahmin ettiği örnejkerin ne kadarının gerçekten pozitif olduğunu gösterir. Yani doğru pozitifi tahminlerin toplam pozitif tahminlere oranıdır. 
+
+Recall(Duyarlılık):Modelin gerçek pozitif örnekleri ne kadar iyi tespit ettiğini gösterir.Yani, doğru pozitif tahminlerin toplam gerçek pozitiflere oranıdır.
+
+F-1 Score: Az önce bahsettiğim precision ve recall'un harmonik ortalamasdır. İki değerde dikkate alınarak modelin genel performansını tek bir ölçü ile özetler.
+
+Support: Her sınıf için gerçek örnek sayısını gösterir. Bu, veri setindeki her sınıfın ne kadar iyi temsil edildiğini anlamak için kullanılır.
+
+
+
+iris = load_iris()
+
+
+X = iris.data  
+
+y = iris.target 
+
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X_train, y_train)
+
+y_pred = knn.predict(X_test)
+
+
+accuracy = accuracy_score(y_test, y_pred)
+report = classification_report(y_test, y_pred, target_names=iris.target_names)
+
+print(f"Doğruluk: {accuracy * 100:.2f}%")
+print("\nSınıflandırma Raporu:\n", report)

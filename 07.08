@@ -1,0 +1,20 @@
+hi today I tell about you what I learned thing .
+This name is BEAUTİDULSOUP that's a usefull python library .
+LET'S CHECK THİS WİTH CODES
+
+from bs4 import BeautifulSoup
+import request
+
+r=request.get(https://www.amazon.com.tr/gp/bestsellers/electronics/ref=zg_bs_nav_electronics_0)
+soup= BeautifulSoup(r.content,"lxml")
+
+ürünler=soup.find_all("li,attrs={"class":"zg-item-immersion"})
+#We do this code we say to machine "I pick up this class"
+for ürün in ürünler:
+ ürün_linkleri= ürün.find.all("div",attrs={"class":"aok-relative"})
+ for i in ürün_linkleri:
+  link = i.find("span",attrs={"class":"zg-item"})
+  link_devam= link .a.get("href)
+  print(link)
+header = {
+it will be soon...

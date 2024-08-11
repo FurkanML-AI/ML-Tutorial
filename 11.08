@@ -1,0 +1,38 @@
+My compter broke down for that reason I copyiden this codes. When I fix my computer I will to apply everything.
+from selenium import webdriver
+import requests
+from bs4 import BeautifulSoup as bs
+from selenium.webdriver.common.keys import Keys
+import time
+import random
+
+with open('messeges.txt','r', encoding = 'utf-8) as messages:
+   messagelist= list()
+   text= messages.read()
+    messagelist= text.split('\n')
+
+def start():
+  driver= webdriver.Chrome()
+  driver.implicitly_wait(3)
+  driver.get('https://web.whatsapp.com/')
+  input('QR kodu okuttuysanız bir tuşa basıp enter tuşuna basın')
+  message_area= driver.find_element_by_xpath(X) #this 'X' may vary from page to page#
+  while True:
+     message_area.click()
+     wp_source=driver.page_source
+     soup = bs(wp_source,'lxml')
+     search= soup.find_all('div',{'class':['_2Gdma', '_2amHe']})
+     try:
+        online=search[0].span.text
+        print(online)
+        if (online in['çevrimiçi','online']) and flag == False;
+        print('online')
+        msgToSend = messagelist[random.randint(0,len(messagelist)-1)]
+        message_area.send_keys(msgToSend)
+        message_area.send_keys(Keys.ENTER)
+        flag=True
+    elif online not in['çevrimiçi','online']:
+        print('Şu an da çevrimdışı')
+        flag= False
+
+start()
